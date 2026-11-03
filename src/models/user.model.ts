@@ -1,7 +1,7 @@
 import { number } from "joi";
 import mongoose, { Schema, type Document } from "mongoose";
 
-interface IUser extends Document {
+export interface IUser extends Document {
   email: string;
   password: string;
   role: "admin" | "membr";
