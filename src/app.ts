@@ -1,5 +1,6 @@
 
 import express,{type Request, type Response} from 'express';
+import autRouter from '../src/routes/auth.routes.js'
 
 const app = express();
 
@@ -10,5 +11,7 @@ app.get('/api', (req : Request, res: Response) : void => {
         message: 'hello api'
     });
 });
+
+app.use('/api/auth',autRouter)
 
 export default app;
