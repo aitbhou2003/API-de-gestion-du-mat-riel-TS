@@ -1,11 +1,16 @@
 import {
-    createEquipment,
+  createEquipment,
   getEquipmentById,
   getEquipments,
   getStats,
+  incrimentCheckoutCount,
+  updateEquipment,
 } from "../repositories/equipment.repository.js";
 import { AppError } from "../utils/app-error.js";
-import { isEquipmentCategory } from "../types/equipment.js";
+import {
+  isEquipmentCategory,
+  updateEquipmentData,
+} from "../types/equipment.js";
 import mongoose from "mongoose";
 import Equipment, { Iequipment } from "../models/equipment.model.js";
 import { threadId } from "node:worker_threads";
@@ -62,4 +67,46 @@ export const createEquipmentService = async (data: Iequipment) => {
 
   const equipment = await createEquipment(data);
   return equipment;
+};
+
+export const updateEquipmentService = async (
+  id: string,
+  data: updateEquipmentData,
+) => {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new AppError("id invalid", 400);
+  }
+
+  const check = await getEquipmentById(id);
+  if (!check) {
+    throw new AppError("equipment introuvalbe", 404);
+  }
+
+  if (check.isArchived) {
+    throw new AppError(
+      "conflir interdit de modifier un equipment archive",
+      409,
+    );
+  }
+
+  return await updateEquipment(id, data);
+};
+
+export const incrimentCheckoutCountService = async (id: string) => {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new AppError("id invalid", 400);
+  }
+  const check = await getEquipmentById(id);
+  if (!check) {
+    throw new AppError("equipment introuvalbe", 404);
+  }
+
+  if (check.isArchived) {
+    throw new AppError(
+      "conflir interdit de modifier un equipment archive",
+      409,
+    );
+  }
+
+  return await incrimentCheckoutCount(id);
 };

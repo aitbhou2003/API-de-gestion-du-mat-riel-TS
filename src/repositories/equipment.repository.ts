@@ -1,4 +1,5 @@
 import Equipment, { type Iequipment } from "../models/equipment.model.js";
+import { type updateEquipmentData } from "../types/equipment.js";
 
 export const getEquipments = async (category?: Iequipment["category"]) => {
   const filter: any = { isArchived: false };
@@ -18,6 +19,28 @@ export const getEquipmentById = async (id: string) => {
   return await Equipment.findById(id);
 };
 
-export const createEquipment = async(data : Iequipment)=>{
-    return await Equipment.create(data);
-}
+export const createEquipment = async (data: Iequipment) => {
+  return await Equipment.create(data);
+};
+
+export const updateEquipment = async (
+  id: string,
+  data: updateEquipmentData,
+) => {
+  return await Equipment.findByIdAndUpdate(id, data, {
+    new: true,
+    runValidators: true,
+  });
+};
+
+export const incrimentCheckoutCount = async (id: string) => {
+  return await Equipment.findByIdAndUpdate(
+    id,
+    {
+      $inc: { checkoutCount: 1 },
+    },
+    {
+      new: true,
+    },
+  );
+};

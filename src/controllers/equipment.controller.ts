@@ -3,6 +3,8 @@ import {
   getEquipmentByIdService,
   getEquipmentsService,
   getStatsService,
+  incrimentCheckoutCountService,
+  updateEquipmentService,
 } from "../services/equipment.service.js";
 import { type Request, type Response, type NextFunction } from "express";
 import { AppError } from "../utils/app-error.js";
@@ -80,6 +82,48 @@ export const createEquipmentController = async (
     res.status(201).json({
       seccess: true,
       message: "equipment cree avec succee",
+      data: equipmemt,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateEquipmentController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    if (typeof req.params.id !== "string") {
+      throw new AppError("id invalide", 400);
+    }
+    const equipmemt = await updateEquipmentService(req.params.id, req.body);
+
+    res.status(200).json({
+      success: true,
+      message: "equipment modifier avec sucee",
+      data: equipmemt,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const incrimentCheckoutCountController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    if (typeof req.params.id !== "string") {
+      throw new AppError("id invalide", 400);
+    }
+
+    const equipmemt = await incrimentCheckoutCountService(req.params.id);
+
+    res.status(200).json({
+      success: true,
       data: equipmemt,
     });
   } catch (error) {
