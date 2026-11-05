@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch src --ext ts --exec tsx src/server.ts",
     "start": "node dist/server.js",
-    "seed:users" : "tsx src/scripts/seed-users.ts"
+    "seed:users" : "tsx src/scripts/seed-users.ts",
+    "seed:equipments" : "tsx src/scripts/seed-equipments.ts"
   },
   "keywords": [],
   "type": "module",
