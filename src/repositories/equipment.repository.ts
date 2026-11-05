@@ -10,7 +10,10 @@ export const getEquipments = async (category?: Iequipment["category"]) => {
   return equipments;
 };
 
-
 export const getStats = async (): Promise<number> => {
   return await Equipment.countDocuments({ isArchived: false });
+};
+
+export const getEquipmentById = async (id: string) => {
+  return await Equipment.findById(id);
 };
