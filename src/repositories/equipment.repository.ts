@@ -9,3 +9,8 @@ export const getEquipments = async (category?: Iequipment["category"]) => {
   const equipments = await Equipment.find(filter);
   return equipments;
 };
+
+
+export const getStats = async (): Promise<number> => {
+  return await Equipment.countDocuments({ isArchived: false });
+};

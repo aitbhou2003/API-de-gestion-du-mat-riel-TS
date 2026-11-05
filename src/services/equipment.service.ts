@@ -1,4 +1,7 @@
-import { getEquipments } from "../repositories/equipment.repository.js";
+import {
+  getEquipments,
+  getStats,
+} from "../repositories/equipment.repository.js";
 import { AppError } from "../utils/app-error.js";
 import { isEquipmentCategory } from "../types/equipment.js";
 
@@ -8,11 +11,15 @@ export const getEquipmentsService = async (category?: string) => {
       throw new AppError("La catégorie ne peut pas être vide", 400);
     }
     if (!isEquipmentCategory(category)) {
-      return []; 
+      return [];
     }
   }
 
   const equipment = await getEquipments(category);
 
   return equipment;
+};
+
+export const getStatsService = async (): Promise<number> => {
+  return await getStats();
 };

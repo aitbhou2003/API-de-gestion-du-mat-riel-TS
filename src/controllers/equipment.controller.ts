@@ -1,4 +1,7 @@
-import { getEquipmentsService } from "../services/equipment.service.js";
+import {
+  getEquipmentsService,
+  getStatsService,
+} from "../services/equipment.service.js";
 import { type Request, type Response, type NextFunction } from "express";
 import { AppError } from "../utils/app-error.js";
 
@@ -21,6 +24,22 @@ export const getEquipmentsController = async (
     });
   } catch (error) {
     console.log(error);
+    next(error);
+  }
+};
+
+export const getStatsController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const stats = await getStatsService();
+    res.status(200).json({
+      success: true,
+      data: stats,
+    });
+  } catch (error) {
     next(error);
   }
 };

@@ -1,9 +1,13 @@
 import { Router } from "express";
-import { getEquipmentsController } from "../controllers/equipment.controller.js";
+import {
+  getEquipmentsController,
+  getStatsController,
+} from "../controllers/equipment.controller.js";
 import { authenticate } from "../middlewares/authenticate.js";
 
-const router = Router()
+const router = Router();
 
-router.get('/',authenticate,getEquipmentsController)
+router.get("/", authenticate, getEquipmentsController);
+router.get("/stats", authenticate, getStatsController);
 
-export default router
+export default router;
