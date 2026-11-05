@@ -1,3 +1,4 @@
+import { string } from "joi";
 import mongoose, { Schema, type Document } from "mongoose";
 
 export interface Iequipment extends Document {

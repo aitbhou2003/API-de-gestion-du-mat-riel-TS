@@ -1,8 +1,11 @@
 import Equipment, { type Iequipment } from "../models/equipment.model.js";
 
-export const getEquipments = async (category: Iequipment["category"]) => {
-  try {
-    const equipments = await Equipment.find({ category: category });
-    return equipments;
-  } catch (error) {}
+export const getEquipments = async (category?: Iequipment["category"]) => {
+  const filter: any = { isArchived: false };
+
+  if (category) {
+    filter.category = category;
+  }
+  const equipments = await Equipment.find(filter);
+  return equipments;
 };

@@ -1,6 +1,7 @@
 
 import express,{type Request, type Response} from 'express';
 import autRouter from '../src/routes/auth.routes.js'
+import equipmentsRouter from '../src/routes/equipment.routes.js'
 
 
 import { errorHandler } from './middlewares/error-handler.js';
@@ -17,6 +18,7 @@ app.get('/api', (req : Request, res: Response) : void => {
 
 
 app.use('/api/auth',autRouter)
+app.use('/api/equipmets',equipmentsRouter)
 
 
 

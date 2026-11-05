@@ -28,10 +28,12 @@ export const authenticate = (
       userId: VToken.userId,
       userRole: VToken.userRole,
     };
+    
     next();
   } catch (error) {
+    console.log(error);
     return res.status(401).json({
-      message: "token absent ou format invalid",
+      message: "token absent ou format invaslid",
     });
   }
 };
