@@ -1,4 +1,5 @@
 import {
+    createEquipment,
   getEquipmentById,
   getEquipments,
   getStats,
@@ -6,6 +7,8 @@ import {
 import { AppError } from "../utils/app-error.js";
 import { isEquipmentCategory } from "../types/equipment.js";
 import mongoose from "mongoose";
+import Equipment, { Iequipment } from "../models/equipment.model.js";
+import { threadId } from "node:worker_threads";
 
 export const getEquipmentsService = async (category?: string) => {
   if (category !== undefined) {
@@ -36,5 +39,27 @@ export const getEquipmentByIdService = async (id: string) => {
     throw new AppError("equipment introuvable", 404);
   }
 
+  return equipment;
+};
+
+export const createEquipmentService = async (data: Iequipment) => {
+  if (data.name.trim() == "") {
+    throw new AppError("name invalid", 400);
+  }
+  if (!isEquipmentCategory(data.category)) {
+    throw new AppError("category invalide", 400);
+  }
+
+  if (data.dailyLateFeeCents < 0 || !Number.isInteger(data.dailyLateFeeCents)) {
+    throw new AppError("dailyLateFeeCents invalide", 400);
+  }
+
+  const check = await Equipment.findOne({ assetTag: data.assetTag });
+
+  if (check) {
+    throw new AppError("comflit equipmemt deja exist", 409);
+  }
+
+  const equipment = await createEquipment(data);
   return equipment;
 };

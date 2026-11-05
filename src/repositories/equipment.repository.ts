@@ -17,3 +17,7 @@ export const getStats = async (): Promise<number> => {
 export const getEquipmentById = async (id: string) => {
   return await Equipment.findById(id);
 };
+
+export const createEquipment = async(data : Iequipment)=>{
+    return await Equipment.create(data);
+}
