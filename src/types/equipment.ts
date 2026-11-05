@@ -7,3 +7,7 @@ export const isEquipmentCategory = (
 ): category is EquipmentCategory => {
   return ["video", "audio", "informatique"].includes(category);
 };
+
+export type updateEquipmentData = Partial<
+  Pick<Iequipment, "name" | "dailyLateFeeCents">
+>;
