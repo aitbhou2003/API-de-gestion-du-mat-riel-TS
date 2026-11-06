@@ -5,6 +5,7 @@ import {
   getEquipmentsController,
   getStatsController,
   incrimentCheckoutCountController,
+  updateEquipmentController,
 } from "../controllers/equipment.controller.js";
 import { authenticate } from "../middlewares/authenticate.js";
 import { requireRole } from "../middlewares/require-role.js";
@@ -30,7 +31,7 @@ router.patch(
   authenticate,
   requireRole("admin"),
   validate(updateEquipmentSchema),
-  createEquipmentController,
+  updateEquipmentController,
 );
 
 router.post(
