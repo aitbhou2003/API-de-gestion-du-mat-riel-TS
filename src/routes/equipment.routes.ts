@@ -15,9 +15,24 @@ import { updateEquipmentSchema } from "../validators/validate-update-equipment.j
 
 const router = Router();
 
-router.get("/", authenticate, getEquipmentsController);
-router.get("/stats", authenticate, getStatsController);
-router.get("/:id", authenticate, getEquipmentByIdController);
+router.get(
+  "/",
+  authenticate,
+  requireRole("admin", "member"),
+  getEquipmentsController,
+);
+router.get(
+  "/stats",
+  authenticate,
+  requireRole("admin", "member"),
+  getStatsController,
+);
+router.get(
+  "/:id",
+  authenticate,
+  requireRole("admin", "member"),
+  getEquipmentByIdController,
+);
 router.post(
   "/",
   authenticate,
@@ -38,6 +53,6 @@ router.post(
   "/:id/checkouts",
   authenticate,
   requireRole("admin"),
-  incrimentCheckoutCountController
+  incrimentCheckoutCountController,
 );
 export default router;
