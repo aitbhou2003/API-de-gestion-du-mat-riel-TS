@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface ILoan extends Document {
-  equipmetId: Schema.Types.ObjectId;
+  equipmentId: Schema.Types.ObjectId;
   status: "ongoing" | "returned";
   returnedAt: Date;
 }
 
 const loanSchema = new Schema<ILoan>({
-  equipmetId: {
+  equipmentId: {
     type: Schema.Types.ObjectId,
     ref: "Equipment",
   },
