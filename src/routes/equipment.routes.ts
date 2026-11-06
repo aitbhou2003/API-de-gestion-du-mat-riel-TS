@@ -37,7 +37,7 @@ router.post(
   "/",
   authenticate,
   requireRole("admin"),
-  validate(createEquipmentSchema),
+  validate({body : createEquipmentSchema}),
   createEquipmentController,
 );
 
@@ -45,7 +45,7 @@ router.patch(
   "/:id",
   authenticate,
   requireRole("admin"),
-  validate(updateEquipmentSchema),
+  validate({body : updateEquipmentSchema}),
   updateEquipmentController,
 );
 
