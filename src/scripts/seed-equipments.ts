@@ -39,6 +39,9 @@ const equipmentSeed = async () => {
       dailyLateFeeCents: 80,
       checkoutCount: 0,
     });
+
+    console.log("equipment seed successfuly");
+    
   } catch (error) {
     console.error("equipment seed error : ", error);
     process.exitCode = 1;
