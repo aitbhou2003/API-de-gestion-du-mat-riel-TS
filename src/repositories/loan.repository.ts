@@ -10,5 +10,7 @@ export const getLoans = async (date?: string) => {
     filter.returnedAt = { $gte: new Date(date) };
   }
 
-  return await Loan.find(filter);
+  return await Loan.find(filter)
+    .sort({ returnedAt: -1, _id: 1 })
+    .populate("equipmentId");
 };
